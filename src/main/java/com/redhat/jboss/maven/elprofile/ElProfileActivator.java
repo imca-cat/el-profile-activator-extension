@@ -4,6 +4,8 @@
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
+ * Modifications copyright 2018 J. Lewis Muir
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at

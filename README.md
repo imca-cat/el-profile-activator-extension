@@ -1,3 +1,5 @@
+[//]: # (Modifications copyright 2018 J. Lewis Muir)
+
 EL Profile Activation Maven Extension
 -------------------------------------
 
