@@ -21,11 +21,11 @@ EL Profile Activator Extension:
   expression.  This enables support for property names containing invalid
   MVEL identifier characters (e.g., a dot as in `foo.env`).
 
-# Prerequisites
+## Prerequisites
 
 * [Maven 3.3.1][4] or later
 
-# Install
+## Install
 
 Add the following to your project's `.mvn/extensions.xml` file:
 
@@ -42,7 +42,7 @@ Add the following to your project's `.mvn/extensions.xml` file:
 </extensions>
 ```
 
-# Use
+## Use
 
 In a profile activation `property` element (e.g., at the XPath
 `/project/profiles/profile/activation/property` in a POM), set
@@ -57,7 +57,7 @@ map, set the `name` element to `mvel(p)`; the identifier `p` can then be
 used in the MVEL expression to access any of the available properties
 (e.g., `p["foo.env"]`).
 
-# Examples
+## Examples
 
 These examples are given as MVEL expressions, not as MVEL expressions
 encoded as XML content.  All of these examples can be included
