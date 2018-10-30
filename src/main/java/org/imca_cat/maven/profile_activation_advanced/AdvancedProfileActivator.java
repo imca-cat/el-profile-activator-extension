@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.redhat.jboss.maven.elprofile;
+package org.imca_cat.maven.profile_activation_advanced;
 
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.ActivationProperty;
@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
  * 
  */
 @Component(role = ProfileActivator.class, hint = "property")
-public class ElProfileActivator implements ProfileActivator {
+public class AdvancedProfileActivator implements ProfileActivator {
 
     private static final Pattern COMMA_PAT = Pattern.compile(",");
     private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^mvel(?:\\(([^\\)]*+)\\))?+$");
