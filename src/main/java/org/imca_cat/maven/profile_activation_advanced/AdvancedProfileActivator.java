@@ -55,6 +55,7 @@ public class AdvancedProfileActivator implements ProfileActivator {
     @Requirement
     private Logger logger;
 
+    @Override
     public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problemCollector) {
 
         Activation activation = profile.getActivation();
@@ -89,6 +90,7 @@ public class AdvancedProfileActivator implements ProfileActivator {
         return result ? true : new PropertyProfileActivator().isActive(profile, context, problemCollector);
     }
 
+    @Override
     public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problemCollector) {
         return new PropertyProfileActivator().presentInConfig(profile, context, problemCollector);
     }
