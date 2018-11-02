@@ -14,6 +14,14 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+    <developers>
+        <developer>
+            <name>J. Lewis Muir</name>
+            <email>jlmuir@imca-cat.org</email>
+            <organization>IMCA-CAT</organization>
+            <organizationUrl>http://imca-cat.org/</organizationUrl>
+        </developer>
+    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
