@@ -82,13 +82,13 @@ public class AdvancedProfileActivator implements ProfileActivator {
      *          determined; must not be {@code null}
      * @param context the environmental context used to determine the
      *          activation status of the profile; must not be {@code null}
-     * @param problemCollector the container used to collect problems (e.g.,
-     *          bad syntax) that were encountered; must not be {@code null}
+     * @param problems the container used to collect problems (e.g., bad
+     *          syntax) that were encountered; must not be {@code null}
      *
      * @return {@code true} if the profile is active; {@code false} otherwise
      */
     @Override
-    public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problemCollector) {
+    public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
 
         Activation activation = profile.getActivation();
 
@@ -112,14 +112,14 @@ public class AdvancedProfileActivator implements ProfileActivator {
                     }
                     String value = property.getValue();
                     logger.debug("Evaluating following MVEL expression: " + value);
-                    result = evaluateMvel(value, parameters, context, problemCollector);
+                    result = evaluateMvel(value, parameters, context, problems);
                     logger.debug("Evaluated MVEL expression: " + value + " as " + result);
                 }
             }
         }
 
         // call original implementation if mvel script was not valid/false
-        return result ? true : new PropertyProfileActivator().isActive(profile, context, problemCollector);
+        return result ? true : new PropertyProfileActivator().isActive(profile, context, problems);
     }
 
     /**
@@ -131,18 +131,18 @@ public class AdvancedProfileActivator implements ProfileActivator {
      *          modeled by this activator; must not be {@code null}
      * @param context the environmental context used to determine the presence
      *          of the activation in the profile; must not be {@code null}
-     * @param problemCollector the container used to collect problems (e.g.,
-     *          bad syntax) that were encountered; must not be {@code null}
+     * @param problems the container used to collect problems (e.g., bad
+     *          syntax) that were encountered; must not be {@code null}
      *
      * @return {@code true} if the activation is present; {@code false}
      *           otherwise
      */
     @Override
-    public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problemCollector) {
-        return new PropertyProfileActivator().presentInConfig(profile, context, problemCollector);
+    public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
+        return new PropertyProfileActivator().presentInConfig(profile, context, problems);
     }
 
-    private boolean evaluateMvel(String expression, List<String> parameters, ProfileActivationContext context, ModelProblemCollector problemCollector) {
+    private boolean evaluateMvel(String expression, List<String> parameters, ProfileActivationContext context, ModelProblemCollector problems) {
 
         if (expression == null || expression.length() == 0) {
             return false;
