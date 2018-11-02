@@ -41,7 +41,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Alternative implementation of PropertyActivator for Maven 3
+ * A property-based {@link ProfileActivator} that evaluates an
+ * <a href="https://github.com/mvel/mvel">MVEL</a>
+ * expression on system and user properties to determine activation.
  * 
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  * 
@@ -55,6 +57,36 @@ public class AdvancedProfileActivator implements ProfileActivator {
     @Requirement
     private Logger logger;
 
+    /**
+     * Constructs an instance.
+     */
+    public AdvancedProfileActivator() {
+      super();
+    }
+
+    /**
+     * Determines whether the specified profile is active using the specified
+     * activation context and problem collector.
+     * <p>
+     * If the activation property name equals {@code "mvel"}, or equals
+     * {@code "mvel("} followed by a properties-map identifier followed by
+     * {@code ")"}, the MVEL evaluation mode is triggered, and the activation
+     * property value is evaluated as an MVEL expression to determine whether
+     * the profile is active.  If the MVEL evaluation mode is not triggered,
+     * or if the MVEL expression evaluates to {@code false} or is invalid, a
+     * {@link PropertyProfileActivator} instance is used to determine whether
+     * the profile is active (i.e., the activation behaves like a normal
+     * property activation).
+     *
+     * @param profile the profile whose activation status should be
+     *          determined; must not be {@code null}
+     * @param context the environmental context used to determine the
+     *          activation status of the profile; must not be {@code null}
+     * @param problemCollector the container used to collect problems (e.g.,
+     *          bad syntax) that were encountered; must not be {@code null}
+     *
+     * @return {@code true} if the profile is active; {@code false} otherwise
+     */
     @Override
     public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problemCollector) {
 
@@ -90,6 +122,21 @@ public class AdvancedProfileActivator implements ProfileActivator {
         return result ? true : new PropertyProfileActivator().isActive(profile, context, problemCollector);
     }
 
+    /**
+     * Determines whether an activation modeled by this activator is present
+     * in the specified profile using the specified context and problem
+     * collector.
+     *
+     * @param profile the profile to inspect for the presence of an activation
+     *          modeled by this activator; must not be {@code null}
+     * @param context the environmental context used to determine the presence
+     *          of the activation in the profile; must not be {@code null}
+     * @param problemCollector the container used to collect problems (e.g.,
+     *          bad syntax) that were encountered; must not be {@code null}
+     *
+     * @return {@code true} if the activation is present; {@code false}
+     *           otherwise
+     */
     @Override
     public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problemCollector) {
         return new PropertyProfileActivator().presentInConfig(profile, context, problemCollector);
