@@ -46,11 +46,9 @@ import java.util.regex.Pattern;
  * expression on system and user properties to determine activation.
  * 
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
- * 
  */
 @Component(role = ProfileActivator.class, hint = "property")
 public class AdvancedProfileActivator implements ProfileActivator {
-
     private static final Pattern COMMA_PAT = Pattern.compile(",");
     private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^mvel(?:\\(([^\\)]*+)\\))?+$");
 
@@ -89,7 +87,6 @@ public class AdvancedProfileActivator implements ProfileActivator {
      */
     @Override
     public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
-
         Activation activation = profile.getActivation();
 
         boolean result = false;
@@ -143,7 +140,6 @@ public class AdvancedProfileActivator implements ProfileActivator {
     }
 
     private boolean evaluateMvel(String expression, List<String> parameters, ProfileActivationContext context, ModelProblemCollector problems) {
-
         if (expression == null || expression.length() == 0) {
             return false;
         }
@@ -182,5 +178,4 @@ public class AdvancedProfileActivator implements ProfileActivator {
             return false;
         }
     }
-
 }
