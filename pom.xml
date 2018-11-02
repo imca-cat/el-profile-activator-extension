@@ -10,12 +10,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.api.version>1.7</java.api.version>
+        <maven.api.version>3.2.2</maven.api.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
-            <version>3.2.2</version>
+            <version>${maven.api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mvel</groupId>
@@ -123,6 +124,15 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.0.1</version>
+                <configuration>
+                    <links>
+                        <link>https://maven.apache.org/ref/${maven.api.version}/maven-core/apidocs</link>
+                        <link>https://maven.apache.org/ref/${maven.api.version}/maven-model/apidocs</link>
+                        <link>https://maven.apache.org/ref/${maven.api.version}/maven-model-builder/apidocs</link>
+                        <link>https://codehaus-plexus.github.io/plexus-containers/plexus-container-default/apidocs</link>
+                        <link>https://codehaus-plexus.github.io/plexus-containers/plexus-component-annotations/apidocs</link>
+                    </links>
+                </configuration>
                 <executions>
                     <execution>
                         <id>bundle-javadoc</id>
