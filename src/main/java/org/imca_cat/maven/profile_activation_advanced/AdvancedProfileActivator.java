@@ -91,12 +91,10 @@ public class AdvancedProfileActivator implements ProfileActivator {
 
         boolean result = false;
 
-        if (activation != null)
-        {
+        if (activation != null) {
             ActivationProperty property = activation.getProperty();
 
-            if (property != null)
-            {
+            if (property != null) {
                 String name = property.getName();
 
                 Matcher matcher = MVEL_SCRIPT_PROPERTY_NAME_PAT.matcher((name == null) ? "" : name);
