@@ -8,6 +8,12 @@
     <name>Profile Activation Advanced</name>
     <description>A Maven extension for expressive property-based profile activation</description>
     <url>https://github.com/imca-cat/profile-activation-advanced</url>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
