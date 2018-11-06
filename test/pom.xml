@@ -1,248 +1,250 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Modifications copyright 2018 J. Lewis Muir -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.imca-cat.maven</groupId>
-    <artifactId>profile-activation-advanced-test</artifactId>
-    <version>0.0.0</version>
+  <groupId>org.imca-cat.maven</groupId>
+  <artifactId>profile-activation-advanced-test</artifactId>
+  <version>0.0.0</version>
 
-    <packaging>pom</packaging>
+  <packaging>pom</packaging>
 
-    <properties>
-    </properties>
+  <properties>
+  </properties>
 
-    <dependencies>
-    </dependencies>
+  <dependencies>
+  </dependencies>
 
-    <build>
-    </build>
+  <build>
+  </build>
 
-    <profiles>
-        <profile>
-            <id>foo and bar equals</id>
-            <activation>
-                <property>
-                    <name>mvel</name>
-                    <value>isdef foo &amp;&amp; isdef bar &amp;&amp; foo==bar</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo and bar equals</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo-and-bar-equals">
-                                        <echo>foo and bar equals</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>foo is defined while bar is not</id>
-            <activation>
-                <property>
-                    <name>mvel</name>
-                    <value>isdef foo &amp;&amp; !isdef bar</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo is defined while bar is not</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo-is-defined-while-bar-is-not">
-                                        <echo>foo is defined while bar is not</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>foo starts with abc or baz contains xyz</id>
-            <activation>
-                <property>
-                    <name>mvel</name>
-                    <value>(isdef foo &amp;&amp; foo.startsWith("abc")) || (isdef baz &amp;&amp; baz.contains("xyz"))</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo starts with abc or baz contains xyz</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo-starts-with-abc-or-baz-contains-xyz">
-                                        <echo>foo starts with abc or baz contains xyz</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>foo equals a1 and mvel parameter list is emtpy</id>
-            <activation>
-                <property>
-                    <name>mvel()</name>
-                    <value>isdef foo &amp;&amp; foo == "a1"</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo equals a1 and mvel parameter list is emtpy</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo-equals-a1-and-mvel-parameter-list-is-emtpy">
-                                        <echo>foo equals a1 and mvel parameter list is emtpy</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>foo equals a2 and mvel parameter list is whitespace</id>
-            <activation>
-                <property>
-                    <name>mvel(   )</name>
-                    <value>isdef foo &amp;&amp; foo == "a2"</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo equals a2 and mvel parameter list is whitespace</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo-equals-a2-and-mvel-parameter-list-is-whitespace">
-                                        <echo>foo equals a2 and mvel parameter list is whitespace</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>foo.env equals a1 and properties identifier is p</id>
-            <activation>
-                <property>
-                    <name>mvel(p)</name>
-                    <value>isdef foo.env &amp;&amp; p["foo.env"] == "a1"</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo.env equals a1 and properties identifier is p</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo.env-equals-a1-and-properties-identifier-is-p">
-                                        <echo>foo.env equals a1 and properties identifier is p</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>foo.env equals a2 and properties identifier is p with whitespace</id>
-            <activation>
-                <property>
-                    <name>mvel(   p   )</name>
-                    <value>isdef foo.env &amp;&amp; p["foo.env"] == "a2"</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>foo.env equals a2 and properties identifier is p with whitespace</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <target name="foo.env-equals-a2-and-properties-identifier-is-p-with-whitespace">
-                                        <echo>foo.env equals a2 and properties identifier is p with whitespace</echo>
-                                    </target>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+  <profiles>
+    <profile>
+      <id>foo and bar equals</id>
+      <activation>
+        <property>
+          <name>mvel</name>
+          <value>isdef foo &amp;&amp; isdef bar &amp;&amp; foo==bar</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo and bar equals</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo-and-bar-equals">
+                    <echo>foo and bar equals</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>foo is defined while bar is not</id>
+      <activation>
+        <property>
+          <name>mvel</name>
+          <value>isdef foo &amp;&amp; !isdef bar</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo is defined while bar is not</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo-is-defined-while-bar-is-not">
+                    <echo>foo is defined while bar is not</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>foo starts with abc or baz contains xyz</id>
+      <activation>
+        <property>
+          <name>mvel</name>
+          <value>(isdef foo &amp;&amp; foo.startsWith("abc")) || (isdef baz &amp;&amp; baz.contains("xyz"))</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo starts with abc or baz contains xyz</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo-starts-with-abc-or-baz-contains-xyz">
+                    <echo>foo starts with abc or baz contains xyz</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>foo equals a1 and mvel parameter list is emtpy</id>
+      <activation>
+        <property>
+          <name>mvel()</name>
+          <value>isdef foo &amp;&amp; foo == "a1"</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo equals a1 and mvel parameter list is emtpy</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo-equals-a1-and-mvel-parameter-list-is-emtpy">
+                    <echo>foo equals a1 and mvel parameter list is emtpy</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>foo equals a2 and mvel parameter list is whitespace</id>
+      <activation>
+        <property>
+          <name>mvel(   )</name>
+          <value>isdef foo &amp;&amp; foo == "a2"</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo equals a2 and mvel parameter list is whitespace</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo-equals-a2-and-mvel-parameter-list-is-whitespace">
+                    <echo>foo equals a2 and mvel parameter list is whitespace</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>foo.env equals a1 and properties identifier is p</id>
+      <activation>
+        <property>
+          <name>mvel(p)</name>
+          <value>isdef foo.env &amp;&amp; p["foo.env"] == "a1"</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo.env equals a1 and properties identifier is p</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo.env-equals-a1-and-properties-identifier-is-p">
+                    <echo>foo.env equals a1 and properties identifier is p</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>foo.env equals a2 and properties identifier is p with whitespace</id>
+      <activation>
+        <property>
+          <name>mvel(   p   )</name>
+          <value>isdef foo.env &amp;&amp; p["foo.env"] == "a2"</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>foo.env equals a2 and properties identifier is p with whitespace</id>
+                <phase>validate</phase>
+                <configuration>
+                  <target name="foo.env-equals-a2-and-properties-identifier-is-p-with-whitespace">
+                    <echo>foo.env equals a2 and properties identifier is p with whitespace</echo>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

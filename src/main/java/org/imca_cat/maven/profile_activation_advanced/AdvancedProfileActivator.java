@@ -49,131 +49,131 @@ import java.util.regex.Pattern;
  */
 @Component(role = ProfileActivator.class, hint = "property")
 public class AdvancedProfileActivator implements ProfileActivator {
-    private static final Pattern COMMA_PAT = Pattern.compile(",");
-    private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^mvel(?:\\(([^\\)]*+)\\))?+$");
+  private static final Pattern COMMA_PAT = Pattern.compile(",");
+  private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^mvel(?:\\(([^\\)]*+)\\))?+$");
 
-    @Requirement
-    private Logger logger;
+  @Requirement
+  private Logger logger;
 
-    /**
-     * Constructs an instance.
-     */
-    public AdvancedProfileActivator() {
-      super();
+  /**
+   * Constructs an instance.
+   */
+  public AdvancedProfileActivator() {
+    super();
+  }
+
+  /**
+   * Determines whether the specified profile is active using the specified
+   * activation context and problem collector.
+   * <p>
+   * If the activation property name equals {@code "mvel"}, or equals
+   * {@code "mvel("} followed by a properties-map identifier followed by
+   * {@code ")"}, the MVEL evaluation mode is triggered, and the activation
+   * property value is evaluated as an MVEL expression to determine whether
+   * the profile is active.  If the MVEL evaluation mode is not triggered,
+   * or if the MVEL expression evaluates to {@code false} or is invalid, a
+   * {@link PropertyProfileActivator} instance is used to determine whether
+   * the profile is active (i.e., the activation behaves like a normal
+   * property activation).
+   *
+   * @param profile the profile whose activation status should be
+   *          determined; must not be {@code null}
+   * @param context the environmental context used to determine the
+   *          activation status of the profile; must not be {@code null}
+   * @param problems the container used to collect problems (e.g., bad
+   *          syntax) that were encountered; must not be {@code null}
+   *
+   * @return {@code true} if the profile is active; {@code false} otherwise
+   */
+  @Override
+  public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
+    Activation activation = profile.getActivation();
+
+    boolean result = false;
+
+    if (activation != null) {
+      ActivationProperty property = activation.getProperty();
+
+      if (property != null) {
+        String name = property.getName();
+
+        Matcher matcher = MVEL_SCRIPT_PROPERTY_NAME_PAT.matcher((name == null) ? "" : name);
+        if (matcher.matches()) {
+          List<String> parameters = Collections.<String>emptyList();
+          String parametersString = matcher.group(1);
+          parametersString = (parametersString == null) ? "" : parametersString.trim();
+          if (!parametersString.isEmpty()) {
+            parameters = Arrays.asList(COMMA_PAT.split(parametersString, -1));
+          }
+          String value = property.getValue();
+          logger.debug("Evaluating following MVEL expression: " + value);
+          result = evaluateMvel(value, parameters, context, problems);
+          logger.debug("Evaluated MVEL expression: " + value + " as " + result);
+        }
+      }
     }
 
-    /**
-     * Determines whether the specified profile is active using the specified
-     * activation context and problem collector.
-     * <p>
-     * If the activation property name equals {@code "mvel"}, or equals
-     * {@code "mvel("} followed by a properties-map identifier followed by
-     * {@code ")"}, the MVEL evaluation mode is triggered, and the activation
-     * property value is evaluated as an MVEL expression to determine whether
-     * the profile is active.  If the MVEL evaluation mode is not triggered,
-     * or if the MVEL expression evaluates to {@code false} or is invalid, a
-     * {@link PropertyProfileActivator} instance is used to determine whether
-     * the profile is active (i.e., the activation behaves like a normal
-     * property activation).
-     *
-     * @param profile the profile whose activation status should be
-     *          determined; must not be {@code null}
-     * @param context the environmental context used to determine the
-     *          activation status of the profile; must not be {@code null}
-     * @param problems the container used to collect problems (e.g., bad
-     *          syntax) that were encountered; must not be {@code null}
-     *
-     * @return {@code true} if the profile is active; {@code false} otherwise
-     */
-    @Override
-    public boolean isActive(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
-        Activation activation = profile.getActivation();
+    // call original implementation if mvel script was not valid/false
+    return result ? true : new PropertyProfileActivator().isActive(profile, context, problems);
+  }
 
-        boolean result = false;
+  /**
+   * Determines whether an activation modeled by this activator is present
+   * in the specified profile using the specified context and problem
+   * collector.
+   *
+   * @param profile the profile to inspect for the presence of an activation
+   *          modeled by this activator; must not be {@code null}
+   * @param context the environmental context used to determine the presence
+   *          of the activation in the profile; must not be {@code null}
+   * @param problems the container used to collect problems (e.g., bad
+   *          syntax) that were encountered; must not be {@code null}
+   *
+   * @return {@code true} if the activation is present; {@code false}
+   *           otherwise
+   */
+  @Override
+  public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
+    return new PropertyProfileActivator().presentInConfig(profile, context, problems);
+  }
 
-        if (activation != null) {
-            ActivationProperty property = activation.getProperty();
-
-            if (property != null) {
-                String name = property.getName();
-
-                Matcher matcher = MVEL_SCRIPT_PROPERTY_NAME_PAT.matcher((name == null) ? "" : name);
-                if (matcher.matches()) {
-                    List<String> parameters = Collections.<String>emptyList();
-                    String parametersString = matcher.group(1);
-                    parametersString = (parametersString == null) ? "" : parametersString.trim();
-                    if (!parametersString.isEmpty()) {
-                        parameters = Arrays.asList(COMMA_PAT.split(parametersString, -1));
-                    }
-                    String value = property.getValue();
-                    logger.debug("Evaluating following MVEL expression: " + value);
-                    result = evaluateMvel(value, parameters, context, problems);
-                    logger.debug("Evaluated MVEL expression: " + value + " as " + result);
-                }
-            }
-        }
-
-        // call original implementation if mvel script was not valid/false
-        return result ? true : new PropertyProfileActivator().isActive(profile, context, problems);
+  private boolean evaluateMvel(String expression, List<String> parameters, ProfileActivationContext context, ModelProblemCollector problems) {
+    if (expression == null || expression.length() == 0) {
+      return false;
     }
 
-    /**
-     * Determines whether an activation modeled by this activator is present
-     * in the specified profile using the specified context and problem
-     * collector.
-     *
-     * @param profile the profile to inspect for the presence of an activation
-     *          modeled by this activator; must not be {@code null}
-     * @param context the environmental context used to determine the presence
-     *          of the activation in the profile; must not be {@code null}
-     * @param problems the container used to collect problems (e.g., bad
-     *          syntax) that were encountered; must not be {@code null}
-     *
-     * @return {@code true} if the activation is present; {@code false}
-     *           otherwise
-     */
-    @Override
-    public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
-        return new PropertyProfileActivator().presentInConfig(profile, context, problems);
+    String propertiesIdentifier = null;
+    Iterator<String> parametersIterator = parameters.iterator();
+    if (parametersIterator.hasNext()) {
+      String identifier = parametersIterator.next();
+      identifier = (identifier == null) ? "" : identifier.trim();
+      if (!identifier.isEmpty()) {
+        propertiesIdentifier = identifier;
+      }
     }
 
-    private boolean evaluateMvel(String expression, List<String> parameters, ProfileActivationContext context, ModelProblemCollector problems) {
-        if (expression == null || expression.length() == 0) {
-            return false;
-        }
+    try {
+      // "casting" to <String,Object> and including both user and system properties
+      Map<String, Object> properties = new HashMap<String, Object>();
+      properties.putAll(context.getSystemProperties());
+      properties.putAll(context.getUserProperties());
+      Map<String, Object> externalVariables = properties;
+      if (propertiesIdentifier != null) {
+        externalVariables = new HashMap<String, Object>();
+        externalVariables.putAll(properties);
+        // including properties map as specified identifier
+        externalVariables.put(propertiesIdentifier, properties);
+      }
 
-        String propertiesIdentifier = null;
-        Iterator<String> parametersIterator = parameters.iterator();
-        if (parametersIterator.hasNext()) {
-            String identifier = parametersIterator.next();
-            identifier = (identifier == null) ? "" : identifier.trim();
-            if (!identifier.isEmpty()) {
-                propertiesIdentifier = identifier;
-            }
-        }
-
-        try {
-            // "casting" to <String,Object> and including both user and system properties
-            Map<String, Object> properties = new HashMap<String, Object>();
-            properties.putAll(context.getSystemProperties());
-            properties.putAll(context.getUserProperties());
-            Map<String, Object> externalVariables = properties;
-            if (propertiesIdentifier != null) {
-                externalVariables = new HashMap<String, Object>();
-                externalVariables.putAll(properties);
-                // including properties map as specified identifier
-                externalVariables.put(propertiesIdentifier, properties);
-            }
-
-            return MVEL.evalToBoolean(expression, externalVariables);
-        } catch (NullPointerException e) {
-            logger.warn("Unable to evaluate mvel property value (\"" + expression + "\")");
-            logger.debug(e.getMessage());
-            return false;
-        } catch (CompileException e) {
-            logger.warn("Unable to evaluate mvel property value (\"" + expression + "\")");
-            logger.debug(e.getMessage());
-            return false;
-        }
+      return MVEL.evalToBoolean(expression, externalVariables);
+    } catch (NullPointerException e) {
+      logger.warn("Unable to evaluate mvel property value (\"" + expression + "\")");
+      logger.debug(e.getMessage());
+      return false;
+    } catch (CompileException e) {
+      logger.warn("Unable to evaluate mvel property value (\"" + expression + "\")");
+      logger.debug(e.getMessage());
+      return false;
     }
+  }
 }
