@@ -62,8 +62,36 @@ used in the MVEL expression to access any of the available properties
 
 ## Examples
 
-These examples are given as MVEL expressions, not as MVEL expressions
-encoded as XML content.  All of these examples can be included
+Activate the POM's `foo_env-development` profile if the `foo_env`
+property is either not set or is set to `development`:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example.foo</groupId>
+  <artifactId>foo</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <profiles>
+    <profile>
+      <id>foo_env-development</id>
+      <activation>
+        <property>
+          <name>mvel</name>
+          <value>(!isdef foo_env) || foo_env == "development"</value>
+        </property>
+      </activation>
+    </profile>
+  </profiles>
+</project>
+```
+
+The following examples are given as MVEL expressions, not as MVEL
+expressions encoded as XML content.  All of these can be included
 without modification in XML if they appear inside a CDATA section
 (e.g., `<![CDATA[isdef foo && foo == "abc"]]>`).  If they do not
 appear inside a CDATA section, but rather appear as regular markup
