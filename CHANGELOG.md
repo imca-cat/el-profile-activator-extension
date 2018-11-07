@@ -7,5 +7,9 @@ to [Semantic Versioning][2].
 
 ## Unreleased
 
+## 0.1.0 - 2018-11-07
+
+* First public release.
+
 [1]: https://keepachangelog.com/en/1.0.0/
 [2]: https://semver.org/spec/v2.0.0.html
