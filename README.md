@@ -14,12 +14,15 @@ there has been no response to communication attempts (i.e., GitHub
 issues and pull requests) and no artifact has been published to the
 Maven Central repository.
 
-Profile Activation Advanced contains the following features not found in
-EL Profile Activator Extension:
+Profile Activation Advanced contains the following improvements over EL
+Profile Activator Extension:
 
 * Supports specifying the identifier of the properties map for the MVEL
   expression.  This enables support for property names containing invalid
   MVEL identifier characters (e.g., a dot as in `foo.env`).
+
+* Published to the Maven Central repository thus enabling it to be used in
+  a project's `.mvn/extensions.xml` file.
 
 ## Prerequisites
 
