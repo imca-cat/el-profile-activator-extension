@@ -12,7 +12,7 @@ true, control is passed to the normal property activator.
 This is a reluctant fork of [EL Profile Activator Extension][3] because
 there has been no response to communication attempts (i.e., GitHub
 issues and pull requests) and no artifact has been published to the
-Maven Central repository.
+Central Repository.
 
 Profile Activation Advanced contains the following improvements over EL
 Profile Activator Extension:
@@ -21,7 +21,7 @@ Profile Activator Extension:
   expression.  This enables support for property names containing invalid
   MVEL identifier characters (e.g., a dot as in `foo.env`).
 
-* Published to the Maven Central repository thus enabling it to be used in
+* Published to the Central Repository thus enabling it to be used in
   a project's `.mvn/extensions.xml` file.
 
 ## Prerequisites
