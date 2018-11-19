@@ -9,20 +9,17 @@ This extension works by hijacking Maven's profile property activation
 mechanism.  If an MVEL expression is specified and does not evaluate to
 true, control is passed to the normal property activator.
 
-This is a reluctant fork of [EL Profile Activator Extension][3] because
-there has been no response to communication attempts (i.e., GitHub
-issues and pull requests) and no artifact has been published to the
-Central Repository.
-
-Profile Activation Advanced contains the following improvements over EL
-Profile Activator Extension:
+This is a fork of [EL Profile Activator Extension][3].  Profile
+Activation Advanced contains the following improvements over EL Profile
+Activator Extension:
 
 * Supports specifying the identifier of the properties map for the MVEL
   expression.  This enables support for property names containing invalid
   MVEL identifier characters (e.g., a dot as in `foo.env`).
 
-* Published to the Central Repository thus enabling it to be used in
-  a project's `.mvn/extensions.xml` file.
+* Published to the Central Repository.
+
+* Works from a project's `.mvn/extensions.xml` file.
 
 ## Prerequisites
 
