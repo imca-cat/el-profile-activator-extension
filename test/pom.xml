@@ -26,7 +26,7 @@
       <id>foo and bar equals</id>
       <activation>
         <property>
-          <name>mvel</name>
+          <name>paa:mvel</name>
           <value>isdef foo &amp;&amp; isdef bar &amp;&amp; foo==bar</value>
         </property>
       </activation>
@@ -58,7 +58,7 @@
       <id>foo is defined while bar is not</id>
       <activation>
         <property>
-          <name>mvel</name>
+          <name>paa:mvel</name>
           <value>isdef foo &amp;&amp; !isdef bar</value>
         </property>
       </activation>
@@ -90,7 +90,7 @@
       <id>foo starts with abc or baz contains xyz</id>
       <activation>
         <property>
-          <name>mvel</name>
+          <name>paa:mvel</name>
           <value>(isdef foo &amp;&amp; foo.startsWith("abc")) || (isdef baz &amp;&amp; baz.contains("xyz"))</value>
         </property>
       </activation>
@@ -122,7 +122,7 @@
       <id>foo equals a1 and mvel parameter list is emtpy</id>
       <activation>
         <property>
-          <name>mvel()</name>
+          <name>paa:mvel()</name>
           <value>isdef foo &amp;&amp; foo == "a1"</value>
         </property>
       </activation>
@@ -154,7 +154,7 @@
       <id>foo equals a2 and mvel parameter list is whitespace</id>
       <activation>
         <property>
-          <name>mvel(   )</name>
+          <name>paa:mvel(   )</name>
           <value>isdef foo &amp;&amp; foo == "a2"</value>
         </property>
       </activation>
@@ -186,7 +186,7 @@
       <id>foo.env equals a1 and properties identifier is p</id>
       <activation>
         <property>
-          <name>mvel(p)</name>
+          <name>paa:mvel(p)</name>
           <value>isdef foo.env &amp;&amp; p["foo.env"] == "a1"</value>
         </property>
       </activation>
@@ -218,7 +218,7 @@
       <id>foo.env equals a2 and properties identifier is p with whitespace</id>
       <activation>
         <property>
-          <name>mvel(   p   )</name>
+          <name>paa:mvel(   p   )</name>
           <value>isdef foo.env &amp;&amp; p["foo.env"] == "a2"</value>
         </property>
       </activation>

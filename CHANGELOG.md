@@ -7,6 +7,12 @@ to [Semantic Versioning][2].
 
 ## Unreleased
 
+### Changed
+
+* Namespaced the magic property name by prefixing it with "paa:", so now
+  the magic property name is "paa:mvel", not "mvel".  To upgrade, change
+  all occurrences of the "mvel" magic property name to "paa:mvel".
+
 ## 0.1.0 - 2018-11-07
 
 * First public release.

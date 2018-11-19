@@ -52,7 +52,7 @@ import java.util.regex.Pattern;
 @Component(role = ProfileActivator.class, hint = "property")
 public class AdvancedProfileActivator implements ProfileActivator {
   private static final Pattern COMMA_PAT = Pattern.compile(",");
-  private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^mvel(?:\\(([^\\)]*+)\\))?+$");
+  private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^paa:mvel(?:\\(([^\\)]*+)\\))?+$");
 
   @Requirement
   private Logger logger;
@@ -68,8 +68,8 @@ public class AdvancedProfileActivator implements ProfileActivator {
    * Determines whether the specified profile is active using the specified
    * activation context and problem collector.
    * <p>
-   * If the activation property name equals {@code "mvel"}, or equals
-   * {@code "mvel("} followed by a properties-map identifier followed by
+   * If the activation property name equals {@code "paa:mvel"}, or equals
+   * {@code "paa:mvel("} followed by a properties-map identifier followed by
    * {@code ")"}, the MVEL evaluation mode is triggered, and the activation
    * property value is evaluated as an MVEL expression to determine whether
    * the profile is active.  If the MVEL evaluation mode is not triggered,
@@ -169,11 +169,11 @@ public class AdvancedProfileActivator implements ProfileActivator {
 
       return MVEL.evalToBoolean(expression, externalVariables);
     } catch (NullPointerException e) {
-      logger.warn("Unable to evaluate mvel property value (\"" + expression + "\")");
+      logger.warn("Unable to evaluate paa:mvel property value (\"" + expression + "\")");
       logger.debug(e.getMessage());
       return false;
     } catch (CompileException e) {
-      logger.warn("Unable to evaluate mvel property value (\"" + expression + "\")");
+      logger.warn("Unable to evaluate paa:mvel property value (\"" + expression + "\")");
       logger.debug(e.getMessage());
       return false;
     }

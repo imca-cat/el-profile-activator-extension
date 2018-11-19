@@ -47,14 +47,14 @@ Add the following to your project's `.mvn/extensions.xml` file:
 
 In a profile activation `property` element (e.g., at the XPath
 `/project/profiles/profile/activation/property` in a POM), set
-the `name` element to `mvel` and the `value` element to an [MVEL
+the `name` element to `paa:mvel` and the `value` element to an [MVEL
 expression][5].  System and user properties are accessible as
 identifiers in the MVEL expression.  If the MVEL expression needs
 to access a property that has a character in its name that is not a
 valid MVEL identifier (e.g., a dot as in `foo.env`), a properties map
-identifier can be specified in parentheses after `mvel` in the `name`
+identifier can be specified in parentheses after `paa:mvel` in the `name`
 element.  For example, to specify the identifier `p` for the properties
-map, set the `name` element to `mvel(p)`; the identifier `p` can then be
+map, set the `name` element to `paa:mvel(p)`; the identifier `p` can then be
 used in the MVEL expression to access any of the available properties
 (e.g., `p["foo.env"]`).
 
@@ -79,7 +79,7 @@ property is either not set or is set to `development`:
       <id>foo_env-development</id>
       <activation>
         <property>
-          <name>mvel</name>
+          <name>paa:mvel</name>
           <value>(!isdef foo_env) || foo_env == "development"</value>
         </property>
       </activation>
