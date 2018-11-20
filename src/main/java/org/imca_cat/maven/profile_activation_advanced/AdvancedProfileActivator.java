@@ -46,7 +46,7 @@ import java.util.regex.Pattern;
  * A property-based {@link ProfileActivator} that evaluates an
  * <a href="https://github.com/mvel/mvel">MVEL</a>
  * expression on system and user properties to determine activation.
- * 
+ *
  * @author <a href="mailto:kpiwko@redhat.com">Karel Piwko</a>
  */
 @Component(role = ProfileActivator.class, hint = "property")
