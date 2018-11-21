@@ -54,6 +54,8 @@ public class AdvancedProfileActivator implements ProfileActivator {
   private static final Pattern COMMA_PAT = Pattern.compile(",");
   private static final Pattern MVEL_SCRIPT_PROPERTY_NAME_PAT = Pattern.compile("^paa:mvel(?:\\(([^\\)]*+)\\))?+$");
 
+  private final PropertyProfileActivator delegate = new PropertyProfileActivator();
+
   @Requirement
   private Logger logger;
 
@@ -116,7 +118,7 @@ public class AdvancedProfileActivator implements ProfileActivator {
     }
 
     // call original implementation if mvel script was not valid/false
-    return result ? true : new PropertyProfileActivator().isActive(profile, context, problems);
+    return result ? true : delegate.isActive(profile, context, problems);
   }
 
   /**
@@ -136,7 +138,7 @@ public class AdvancedProfileActivator implements ProfileActivator {
    */
   @Override
   public boolean presentInConfig(Profile profile, ProfileActivationContext context, ModelProblemCollector problems) {
-    return new PropertyProfileActivator().presentInConfig(profile, context, problems);
+    return delegate.presentInConfig(profile, context, problems);
   }
 
   private boolean evaluateMvel(String expression, List<String> parameters, ProfileActivationContext context, ModelProblemCollector problems) {
