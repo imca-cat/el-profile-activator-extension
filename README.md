@@ -21,7 +21,7 @@ Activator Extension:
 
 ## Prerequisites
 
-* [Maven 3.3.1][4] or later
+* [Maven][4] 3.3.1 or later
 * [MVEL][6] 2.4.2.Final
 
 ## Install
@@ -148,7 +148,7 @@ isdef foo.env && p["foo.env"] == "test"
 [1]: https://maven.apache.org/
 [2]: https://github.com/mvel/mvel
 [3]: https://github.com/kpiwko/el-profile-activator-extension
-[4]: https://maven.apache.org/docs/3.3.1/release-notes.html
+[4]: https://maven.apache.org/docs/history.html
 [5]: http://mvel.documentnode.com/
 [6]: https://github.com/mvel/mvel
 [7]: https://search.maven.org/artifact/org.imca-cat.maven/profile-activation-advanced/0.1.0/jar
