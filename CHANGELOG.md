@@ -13,6 +13,8 @@ to [Semantic Versioning][2].
   the magic property name is "paa:mvel", not "mvel".  To upgrade, change
   all occurrences of the "mvel" magic property name to "paa:mvel".
 
+* Upgraded the mvel2 dependency to 2.4.3.Final.
+
 ## 0.1.0 - 2018-11-07
 
 * First public release.

@@ -22,7 +22,7 @@ Activator Extension:
 ## Prerequisites
 
 * [Maven][4] 3.3.1 or later
-* [MVEL][6] 2.4.2.Final
+* [MVEL][6] 2.4.3.Final
 
 ## Install
 
@@ -36,7 +36,7 @@ appropriate location and arrange for them to be found on Maven's class
 search path:
 
 * [profile-activation-advanced-0.1.0.jar][7]
-* [mvel2-2.4.2.Final.jar][8]
+* [mvel2-2.4.3.Final.jar][8]
 
 There are various ways to do this:
 
@@ -152,5 +152,5 @@ isdef foo.env && p["foo.env"] == "test"
 [5]: http://mvel.documentnode.com/
 [6]: https://github.com/mvel/mvel
 [7]: https://search.maven.org/artifact/org.imca-cat.maven/profile-activation-advanced/0.1.0/jar
-[8]: https://search.maven.org/artifact/org.mvel/mvel2/2.4.2.Final/jar
+[8]: https://search.maven.org/artifact/org.mvel/mvel2/2.4.3.Final/jar
 [9]: https://github.com/takari/maven-wrapper
