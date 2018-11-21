@@ -5,9 +5,9 @@
 Profile Activation Advanced is a [Maven][1] extension enabling a profile
 to be activated with an [MVEL][2] expression.
 
-This extension works by hijacking Maven's profile property activation
+This extension works by overriding Maven's profile property activation
 mechanism.  If an MVEL expression is specified and does not evaluate to
-true, control is passed to the normal property activator.
+true, control is passed to the normal property activation mechanism.
 
 This is a fork of [EL Profile Activator Extension][3].  Profile
 Activation Advanced contains the following improvements over EL Profile
@@ -19,29 +19,53 @@ Activator Extension:
 
 * Published to the Central Repository.
 
-* Works from a project's `.mvn/extensions.xml` file.
-
 ## Prerequisites
 
 * [Maven 3.3.1][4] or later
+* [MVEL][6] 2.4.2.Final
 
 ## Install
 
-Add the following to your project's `.mvn/extensions.xml` file:
+Sadly, Profile Activation Advanced cannot be loaded via Maven's
+`.mvn/extensions.xml` core extension mechanism because it would be
+loaded too late thus preventing it from overriding Maven's built-in
+profile property activation mechanism.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<extensions xmlns="http://maven.apache.org/EXTENSIONS/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/EXTENSIONS/1.0.0
-        http://maven.apache.org/xsd/core-extensions-1.0.0.xsd">
-  <extension>
-    <groupId>org.imca-cat.maven</groupId>
-    <artifactId>profile-activation-advanced</artifactId>
-    <version>0.1.0</version>
-  </extension>
-</extensions>
-```
+To install Profile Activation Advanced, install the following JARs to an
+appropriate location and arrange for them to be found on Maven's class
+search path:
+
+* [profile-activation-advanced-0.1.0.jar][7]
+* [mvel2-2.4.2.Final.jar][8]
+
+There are various ways to do this:
+
+* Place the JARs in Maven's `lib/ext` directory.
+
+* Place the JARs under your project's `lib-ext` directory (or wherever
+  you like) and add to the `MAVEN_OPTS` environment variable the
+  option `-Dmaven.ext.class.path=<JAR-paths>`, where `<JAR-paths>` is
+  a colon-separated list of absolute paths to the JARs placed in your
+  project's `lib-ext` directory.  The difficulty here is that the paths
+  need to be absolute so that they will work even when the current working
+  directory is not the project's root directory.
+
+* Do the same as the preceding approach, but instead of adding to
+  the `MAVEN_OPTS` environment variable, add to your project's
+  `.mvn/maven.config`.  This has the same problem of needing absolute
+  paths.
+
+* Use [Maven Wrapper][9] for your project and patch it to download the
+  needed JARs, install them to your project's `lib-ext` directory, and
+  add the `-Dmaven.ext.class.path=<JAR-paths>` option from the preceding
+  approach to the final Maven execution.  (Even better would be to
+  submit a PR to the Maven Wrapper project to add support for loading an
+  optional Maven Wrapper extension script from the project's root (e.g.,
+  `mvnw.local` and `mvnw.local.cmd`) so that the extra behavior could
+  go in the local extension scripts, and you wouldn't need to patch the
+  Maven Wrapper scripts.)  Since the wrapper knows the absolute path to
+  the project's root, the absolute paths to the JARs can be determined
+  correctly every time it is run.
 
 ## Use
 
@@ -126,3 +150,7 @@ isdef foo.env && p["foo.env"] == "test"
 [3]: https://github.com/kpiwko/el-profile-activator-extension
 [4]: https://maven.apache.org/docs/3.3.1/release-notes.html
 [5]: http://mvel.documentnode.com/
+[6]: https://github.com/mvel/mvel
+[7]: https://search.maven.org/artifact/org.imca-cat.maven/profile-activation-advanced/0.1.0/jar
+[8]: https://search.maven.org/artifact/org.mvel/mvel2/2.4.2.Final/jar
+[9]: https://github.com/takari/maven-wrapper
