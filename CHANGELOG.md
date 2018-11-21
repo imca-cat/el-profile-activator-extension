@@ -7,6 +7,8 @@ to [Semantic Versioning][2].
 
 ## Unreleased
 
+## 0.2.0 - 2018-11-21
+
 ### Changed
 
 * Namespaced the magic property name by prefixing it with "paa:", so now

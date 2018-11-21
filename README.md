@@ -35,7 +35,7 @@ To install Profile Activation Advanced, install the following JARs to an
 appropriate location and arrange for them to be found on Maven's class
 search path:
 
-* [profile-activation-advanced-0.1.0.jar][7]
+* [profile-activation-advanced-0.2.0.jar][7]
 * [mvel2-2.4.3.Final.jar][8]
 
 There are various ways to do this:
@@ -151,6 +151,6 @@ isdef foo.env && p["foo.env"] == "test"
 [4]: https://maven.apache.org/docs/history.html
 [5]: http://mvel.documentnode.com/
 [6]: https://github.com/mvel/mvel
-[7]: https://search.maven.org/artifact/org.imca-cat.maven/profile-activation-advanced/0.1.0/jar
+[7]: https://search.maven.org/artifact/org.imca-cat.maven/profile-activation-advanced/0.2.0/jar
 [8]: https://search.maven.org/artifact/org.mvel/mvel2/2.4.3.Final/jar
 [9]: https://github.com/takari/maven-wrapper

@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.imca-cat.maven</groupId>
   <artifactId>profile-activation-advanced</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <name>Profile Activation Advanced</name>
   <description>A Maven extension for expressive property-based profile activation</description>
   <url>https://github.com/imca-cat/profile-activation-advanced</url>
